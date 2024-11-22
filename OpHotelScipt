@@ -1,6 +1,6 @@
 local Player = game:GetService("Players").LocalPlayer
 local Character = Player.Character or Player.CharacterAdded:Wait()
-local CampingGameIds = {3378223169, 2, 3}
+local CampingGameIds = {2306562216, 3199109640, 4476184621, 3378223169, 3577714245}
 
 if table.find(CampingGameIds, game.GameId) then
     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
@@ -68,3 +68,4 @@ else
     warn("WARNING: GameId doesn't match any official Camping game.")
     game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
 end
+
