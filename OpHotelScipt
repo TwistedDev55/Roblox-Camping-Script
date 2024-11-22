@@ -1,0 +1,70 @@
+local Player = game:GetService("Players").LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local CampingGameIds = {1, 2, 3}
+
+if table.find(CampingGameIds, game.GameId) then
+    local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+    local Window = OrionLib:MakeWindow({Name = "Overpowered Camping Manipulator", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+    Tab:AddParagraph("Warning!","You must be inside of an official Camping game and enter a round for this script to work as intended.")
+
+    local Tab = Window:MakeTab({
+        Name = "Powers",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    ---[ Universal ] ---
+
+    local Section = Tab:AddSection({
+        Name = "All Games"
+    })
+
+    Tab:AddTextbox({
+        Name = "Global Message",
+        Default = "enter message here",
+        TextDisappear = true,
+        Callback = function(Value)
+            if game:GetService("ReplicatedStorage"):FindFirstChild("SendMes") then
+                game.ReplicatedStorage.SendMes:FireServer(Value, "Self")
+            else
+                warn("SendMes was not found!")
+            end
+        end	  
+    })
+
+    ---[ Extra ] --
+
+    local Tab = Window:MakeTab({
+        Name = "Extra",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    local Section = Tab:AddSection({
+        Name = "Other Scripts"
+    })
+
+    Tab:AddButton({
+        Name = "Infinite Yield",
+        Callback = function()
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+          end    
+    })
+
+    local Section = Tab:AddSection({
+        Name = "Misc"
+    })
+
+    Tab:AddButton({
+        Name = "Delete Panel",
+        Callback = function()
+            OrionLib:Destroy()
+          end    
+    })
+
+    OrionLib:Init()
+else
+    warn("WARNING: GameId doesn't match any official Camping game.")
+    game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
+end
