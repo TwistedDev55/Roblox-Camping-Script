@@ -21,7 +21,7 @@ if table.find(CampingGameIds, game.GameId) then
     })
 
     Tab:AddTextbox({
-        Name = "Global Message",
+        Name = "Send Server Message",
         Default = "enter message here",
         TextDisappear = true,
         Callback = function(Value)
@@ -65,7 +65,6 @@ if table.find(CampingGameIds, game.GameId) then
 
     OrionLib:Init()
 else
-    warn("WARNING: GameId doesn't match any official Camping game.")
+    warn("Warning: You are unable to use this script here, as the GameId doesn't match any official camping game. ".. game.GameId)
     game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
 end
-
