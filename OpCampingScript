@@ -1,66 +1,49 @@
-local Player = game:GetService("Players").LocalPlayer
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
 local Character = Player.Character or Player.CharacterAdded:Wait()
 local CampingGameIds = {2306562216, 3199109640, 4476184621, 3378223169, 3577714245}
 
-    print("Starting Script...")
-    local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-    local Window = OrionLib:MakeWindow({Name = "Overpowered Camping Manipulator", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+print("GameId is ".. game.GameId .." and PlaceId is ".. game.PlaceId)
+if table.find(CampingGameIds, game.GameId) then
+    print("This is a camping game!")
 
-    Tab:AddParagraph("Warning!","You must be inside of an official Camping game and enter a round for this script to work as intended.")
+    local Window = Rayfield:CreateWindow({
+        Name = "Rayfield Example Window",
+        Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+        LoadingTitle = "Rayfield Interface Suite",
+        LoadingSubtitle = "by Sirius",
+        Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+     
+        DisableRayfieldPrompts = false,
+        DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+     })
 
-    local Tab = Window:MakeTab({
-        Name = "Powers",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
-
-    ---[ Universal ] ---
-
-    local Section = Tab:AddSection({
-        Name = "All Games"
-    })
-
-    Tab:AddTextbox({
-        Name = "Send Server Message",
-        Default = "enter message here",
-        TextDisappear = true,
-        Callback = function(Value)
+     local Tab = Window:CreateTab("Powers", 4483362458) -- Title, Image
+     local Section = Tab:CreateSection("Hotel")
+     
+     local Input = Tab:CreateInput({
+        Name = "Display Message",
+        CurrentValue = "",
+        PlaceholderText = "Input Text Here",
+        RemoveTextAfterFocusLost = true,
+        Flag = "Input1",
+        Callback = function(Text)
             if game:GetService("ReplicatedStorage"):FindFirstChild("SendMes") then
-                game.ReplicatedStorage.SendMes:FireServer(Value, "Self")
+                game.ReplicatedStorage.SendMes:FireServer(Text, "Self")
             else
                 warn("SendMes was not found!")
             end
-        end	  
-    })
+        end,
+     })
 
-    ---[ Extra ] --
-
-    local Tab = Window:MakeTab({
-        Name = "Extra",
-        Icon = "rbxassetid://4483345998",
-        PremiumOnly = false
-    })
-
-    local Section = Tab:AddSection({
-        Name = "Other Scripts"
-    })
-
-    Tab:AddButton({
-        Name = "Infinite Yield",
-        Callback = function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-          end    
-    })
-
-    local Section = Tab:AddSection({
-        Name = "Misc"
-    })
-
-    Tab:AddButton({
-        Name = "Delete Panel",
-        Callback = function()
-            OrionLib:Destroy()
-          end    
-    })
-
-    OrionLib:Init()
+else
+    Rayfield:Notify({
+        Title = "Error Occured",
+        Content = "Error: GameIds do not match any official Camping games. Make sure you are in a Camping game created by SamsonXVI then try again.",
+        Duration = 5,
+        Image = 4483362458,
+     })
+     task.wait(6)
+     Rayfield:Destroy()
+end
