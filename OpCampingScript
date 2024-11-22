@@ -2,8 +2,6 @@ local Player = game:GetService("Players").LocalPlayer
 local Character = Player.Character or Player.CharacterAdded:Wait()
 local CampingGameIds = {2306562216, 3199109640, 4476184621, 3378223169, 3577714245}
 
-print("Checking GameId")
-if table.find(CampingGameIds, game.GameId) then
     print("Starting Script...")
     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
     local Window = OrionLib:MakeWindow({Name = "Overpowered Camping Manipulator", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
@@ -66,7 +64,3 @@ if table.find(CampingGameIds, game.GameId) then
     })
 
     OrionLib:Init()
-else
-    warn("Warning: You are unable to use this script here, as the GameId doesn't match any official camping game. ".. game.GameId)
-    game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
-end
