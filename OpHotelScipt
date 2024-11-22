@@ -1,6 +1,6 @@
 local Player = game:GetService("Players").LocalPlayer
 local Character = Player.Character or Player.CharacterAdded:Wait()
-local CampingGameIds = {1, 2, 3}
+local CampingGameIds = {3378223169, 2, 3}
 
 if table.find(CampingGameIds, game.GameId) then
     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
